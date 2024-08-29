@@ -9,7 +9,12 @@ const SingleBookPage = async ({ params }: { params: { bookId: string } }) => {
 
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/books/${params.bookId}`
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/books/${params.bookId}`,
+      {
+        next: {
+          revalidate: 3600,
+        },
+      }
     );
 
     console.log("New response", response);
@@ -52,7 +57,6 @@ const SingleBookPage = async ({ params }: { params: { bookId: string } }) => {
           style={{ width: "auto", height: "auto" }}
         />
       </div>
-
     </div>
   );
 };
